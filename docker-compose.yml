@@ -1,0 +1,36 @@
+version: '3'
+services:
+  db:
+    image: postgres
+    restart: always
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_PASSWORD: pass123
+      POSTGRES_DB: beer-db
+      POSTGRES_USER: postgres
+  gateway:
+    build:
+      context: .
+      dockerfile: ./apps/gateway/Dockerfile
+    command: npm run start:dev gateway
+    env_file:
+      - .env
+    depends_on:
+      - rabbitmq
+      - beer-app
+    ports:
+      - '4000:4000'
+  beer-app:
+    build:
+      context: .
+      dockerfile: ./apps/beer-app/Dockerfile
+    command: npm run start:dev beer-app
+    env_file:
+      - .env
+    depends_on:
+      - rabbitmq
+  rabbitmq:
+    image: rabbitmq
+    ports:
+      - '5672:5672'
