@@ -1,15 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { firstValueFrom } from 'rxjs';
-
-import { serialize } from '../../../../../libs/utilities/serialize.util';
 import { RpcException } from '@nestjs/microservices';
+
 import { AuthorizationResponseDto } from './dto/authorization.response.dto';
 import { SearchResponseDto } from './dto/search.response.dto';
 import { ShowResponseDto } from './dto/show.response.dto';
+import { serialize } from 'libs/utilities/serialize.util';
 
 @Injectable()
-export class IntegrationService {
+export class SpotifyService {
   constructor(private readonly httpService: HttpService) {}
 
   async authenticate(): Promise<AuthorizationResponseDto> {
@@ -33,7 +33,7 @@ export class IntegrationService {
       );
       return data;
     } catch (error) {
-      throw new RpcException(error);
+      throw new RpcException(error?.message);
     }
   }
 
@@ -52,7 +52,7 @@ export class IntegrationService {
       );
       return data;
     } catch (error) {
-      throw new RpcException(error);
+      throw new RpcException(error?.message);
     }
   }
 
@@ -82,7 +82,7 @@ export class IntegrationService {
 
       return playlistItem;
     } catch (error) {
-      throw new RpcException(error.message);
+      throw new RpcException(error?.message);
     }
   }
 }

@@ -7,21 +7,22 @@ import {
   RmqContext,
 } from '@nestjs/microservices';
 import { RmqService } from 'libs/modules/rmq/rmq.service';
-import { SpotifyService } from './spotify.service';
+import { PlaylistService } from './playlist.service';
+import { GetPlaylistRequest } from './dto/get-playlist.request';
 
 @Controller()
-export class SpotifyController {
+export class PlaylistController {
   constructor(
-    private readonly spotifyService: SpotifyService,
+    private readonly spotifyService: PlaylistService,
     private readonly rmqService: RmqService,
   ) {}
 
   @MessagePattern({ cmd: 'find_playlist' })
   findPlaylist(
-    @Payload() temperature: { temperature: number },
+    @Payload() getPlaylistRequest: GetPlaylistRequest,
     @Ctx() context: RmqContext,
   ) {
     this.rmqService.ack(context);
-    return this.spotifyService.findPlaylist(temperature.temperature);
+    return this.spotifyService.findPlaylist(getPlaylistRequest.temperature);
   }
 }

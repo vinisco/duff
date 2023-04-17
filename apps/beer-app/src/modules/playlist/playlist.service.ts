@@ -1,22 +1,30 @@
 import { Injectable } from '@nestjs/common';
 import { RpcException } from '@nestjs/microservices';
 
-import { IntegrationService } from '../integration/integration.service';
 import { Beer } from 'apps/beer-app/src/modules/beer/entities/beer.entity';
-import { ShowResponseDto } from '../integration/dto/show.response.dto';
-import { BeerService } from '../beer/beer.service';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { SpotifyService } from 'libs/modules/spotify/spotify.service';
+import { ShowResponseDto } from 'libs/modules/spotify/dto/show.response.dto';
 
 @Injectable()
-export class SpotifyService {
+export class PlaylistService {
   constructor(
-    private readonly integrationService: IntegrationService,
+    private readonly spotifyService: SpotifyService,
     @InjectRepository(Beer)
     private readonly beerRepository: Repository<Beer>,
   ) {}
 
   async findPlaylist(temperature: number) {
+    const countBeers = await this.beerRepository.count();
+
+    if (countBeers === 0) {
+      throw new RpcException({
+        message: `There is no beer registered in the current database`,
+        status: 404,
+      });
+    }
+
     try {
       const beer = await this.beerRepository.query(
         `
@@ -35,7 +43,7 @@ export class SpotifyService {
       }
 
       const playlist: ShowResponseDto =
-        await this.integrationService.showFirstPlaylist(beer[0].style);
+        await this.spotifyService.showFirstPlaylist(beer[0].style);
 
       return {
         beerStyle: beer[0].style,
@@ -51,7 +59,7 @@ export class SpotifyService {
         },
       };
     } catch (error) {
-      throw new RpcException(error);
+      throw new RpcException(error.message);
     }
   }
 }

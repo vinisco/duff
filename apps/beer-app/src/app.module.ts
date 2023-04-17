@@ -7,7 +7,7 @@ import { BeerAppService } from './app.service';
 import appConfig from './config/app.config';
 import migrations from './database/migration.index';
 import { BeerModule } from './modules/beer/beer.module';
-import { SpotifyModule } from './modules/spotify/spotify.module';
+import { PlaylistModule } from './modules/playlist/playlist.module';
 
 @Module({
   imports: [
@@ -30,7 +30,7 @@ import { SpotifyModule } from './modules/spotify/spotify.module';
       }),
     }),
     BeerModule,
-    SpotifyModule,
+    PlaylistModule,
   ],
   controllers: [BeerAppController],
   providers: [BeerAppService],
