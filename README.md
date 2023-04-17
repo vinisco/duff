@@ -55,4 +55,4 @@ yarn test
 
 A aplicação estará rodando na porta 4000. Siga a documentação para testar o funcionamento da API:
 
-http:localhost:4000/documentation
+http://localhost:4000/documentation
