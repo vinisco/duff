@@ -37,7 +37,7 @@ cd "diretorio de sua preferencia"
 git clone https://github.com/vinisco/duff.git
 ```
 
-Criar um arquivo .env na pasta raiz do projeto utilizando como modelo o arquivo .env.example _não se esquecer das credenciais do Spotify_.
+Criar um arquivo .env na pasta raiz do projeto utilizando como modelo o arquivo .env.example, _não se esquecer das credenciais do Spotify_.
 
 Com o docker já inicializado, rodar o comando do docker compose pra subir a aplicação:
 
