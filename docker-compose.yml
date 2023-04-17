@@ -9,6 +9,7 @@ services:
       POSTGRES_PASSWORD: pass123
       POSTGRES_DB: beer-db
       POSTGRES_USER: postgres
+
   gateway:
     build:
       context: .
@@ -21,6 +22,7 @@ services:
       - beer-app
     ports:
       - '4000:4000'
+
   beer-app:
     build:
       context: .
@@ -30,7 +32,9 @@ services:
       - .env
     depends_on:
       - rabbitmq
+
   rabbitmq:
     image: rabbitmq
     ports:
       - '5672:5672'
+

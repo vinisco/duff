@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { BeerService } from './beer.service';
-import { BeerController } from './beer.controller';
+import { PlaylistService } from './playlist.service';
+import { PlaylistController } from './playlist.controller';
 import { RmqModule } from 'libs/modules/rmq/rmq.module';
 import { BEER_SERVICE } from 'libs/common/constants/services';
 
@@ -10,8 +10,8 @@ import { BEER_SERVICE } from 'libs/common/constants/services';
       name: BEER_SERVICE,
     }),
   ],
-  controllers: [BeerController],
-  providers: [BeerService],
-  exports: [BeerService],
+  controllers: [PlaylistController],
+  providers: [PlaylistService],
+  exports: [PlaylistService],
 })
-export class BeerModule {}
+export class PlaylistModule {}

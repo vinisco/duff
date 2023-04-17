@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { RmqService } from 'libs/modules/rmq/rmq.service';
-import { BeerAppModule } from './beerApp.module';
+import { BeerAppModule } from './app.module';
 import { ExceptionFilter } from 'libs/common/http-exception/rpc-exception.filter';
 
 async function bootstrap() {

@@ -20,35 +20,44 @@ export class BeerController {
   ) {}
 
   @MessagePattern({ cmd: 'create' })
-  create(@Payload() createBeerDto: CreateBeerDto, @Ctx() context: RmqContext) {
+  async create(
+    @Payload() createBeerDto: CreateBeerDto,
+    @Ctx() context: RmqContext,
+  ) {
     this.rmqService.ack(context);
 
-    return this.beerService.create({
+    return await this.beerService.create({
       ...createBeerDto,
     });
   }
 
   @MessagePattern({ cmd: 'find_all' })
-  findAll(@Ctx() context: RmqContext) {
+  async findAll(@Ctx() context: RmqContext) {
     this.rmqService.ack(context);
-    return this.beerService.findAll();
+    return await this.beerService.findAll();
   }
 
   @MessagePattern({ cmd: 'find_one' })
-  findOne(@Payload() request: { id: string }, @Ctx() context: RmqContext) {
+  async findOne(
+    @Payload() request: { id: string },
+    @Ctx() context: RmqContext,
+  ) {
     this.rmqService.ack(context);
-    return this.beerService.findOne(request.id);
+    return await this.beerService.findOne(request.id);
   }
 
   @MessagePattern({ cmd: 'update' })
-  update(@Payload() updateBeerDto: UpdateBeerDto, @Ctx() context: RmqContext) {
+  async update(
+    @Payload() updateBeerDto: UpdateBeerDto,
+    @Ctx() context: RmqContext,
+  ) {
     this.rmqService.ack(context);
-    return this.beerService.update(updateBeerDto);
+    return await this.beerService.update(updateBeerDto);
   }
 
   @MessagePattern({ cmd: 'remove' })
-  remove(@Payload() request: { id: string }, @Ctx() context: RmqContext) {
+  async remove(@Payload() request: { id: string }, @Ctx() context: RmqContext) {
     this.rmqService.ack(context);
-    return this.beerService.remove(request.id);
+    return await this.beerService.remove(request.id);
   }
 }

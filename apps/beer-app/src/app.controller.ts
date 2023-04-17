@@ -1,5 +1,5 @@
 import { Controller, Get } from '@nestjs/common';
-import { BeerAppService } from './beerApp.service';
+import { BeerAppService } from './app.service';
 import { EventPattern } from '@nestjs/microservices';
 
 @Controller()

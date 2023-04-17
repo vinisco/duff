@@ -2,9 +2,9 @@ import { Injectable, HttpException, Inject } from '@nestjs/common';
 
 import { CreateBeerRequestDto } from './dto/create-beer.request.dto';
 import { UpdateBeerRequestDto } from './dto/update-beer.request.dto';
-import { BEER_SERVICE } from './constants/services';
 import { ClientProxy } from '@nestjs/microservices';
 import { lastValueFrom } from 'rxjs';
+import { BEER_SERVICE } from '../../../../../libs/common/constants/services';
 
 @Injectable()
 export class BeerService {

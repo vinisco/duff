@@ -2,12 +2,12 @@ import { ConfigModule } from '@nestjs/config';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { BeerAppController } from './beerApp.controller';
-import { BeerAppService } from './beerApp.service';
+import { BeerAppController } from './app.controller';
+import { BeerAppService } from './app.service';
 import appConfig from './config/app.config';
 import migrations from './database/migration.index';
 import { BeerModule } from './modules/beer/beer.module';
-import { RmqModule } from 'libs/modules/rmq/rmq.module';
+import { SpotifyModule } from './modules/spotify/spotify.module';
 
 @Module({
   imports: [
@@ -30,6 +30,7 @@ import { RmqModule } from 'libs/modules/rmq/rmq.module';
       }),
     }),
     BeerModule,
+    SpotifyModule,
   ],
   controllers: [BeerAppController],
   providers: [BeerAppService],

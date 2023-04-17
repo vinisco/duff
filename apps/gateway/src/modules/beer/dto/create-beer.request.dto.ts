@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNumber, IsString } from 'class-validator';
+import { IsNumber, IsString, Max, Min } from 'class-validator';
 import genFake from 'libs/utilities/genFake.util';
 
 export class CreateBeerRequestDto {
@@ -12,7 +12,8 @@ export class CreateBeerRequestDto {
     description: `Minimum beer style temperature
   `,
   })
-  @IsNumber()
+  @Max(1000000)
+  @Min(-278)
   readonly min_temperature: number;
 
   @ApiProperty({
@@ -20,6 +21,7 @@ export class CreateBeerRequestDto {
     description: `Maximum beer style temperature
   `,
   })
-  @IsNumber()
+  @Max(1000000)
+  @Min(-278)
   readonly max_temperature: number;
 }
