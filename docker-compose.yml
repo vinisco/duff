@@ -10,6 +10,11 @@ services:
       POSTGRES_DB: beer-db
       POSTGRES_USER: postgres
 
+  rabbitmq:
+    image: rabbitmq
+    ports:
+      - '5672:5672'
+
   gateway:
     build:
       context: .
@@ -33,8 +38,4 @@ services:
     depends_on:
       - rabbitmq
 
-  rabbitmq:
-    image: rabbitmq
-    ports:
-      - '5672:5672'
 
